@@ -8,11 +8,11 @@ A static, English-language transfer outlook for Last War servers **1605–1636**
 - [`transfer_outlook_1605-1668.html`](transfer_outlook_1605-1668.html) — server rankings, projected opening states, seat allocations, Warzone Points estimates, and point-based growth room.
 - [`player_impact_1605-1668.html`](player_impact_1605-1668.html) — top 50 tracked players on each requested server, model influence, and solo player-growth scenarios.
 
-## Publish with GitHub Pages
+## GitHub Pages
 
-In this repository, open **Settings → Pages**. Under **Build and deployment**, choose **Deploy from a branch**, then select **`main`** and **`/(root)`**. The site entry point is `index.html`. Publishing is intentionally left for the repository owner to enable.
+The site entry point is `index.html`. The custom domain `lw-warzone-intel.caiovlf.com` is recorded in the root [`CNAME`](CNAME) file. GitHub Pages should publish from **`main`** and **`/(root)`**.
 
-[GitHub's publishing-source guide](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site) has the current setup steps.
+[GitHub's custom-domain guide](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site) explains DNS and HTTPS certificate setup.
 
 ## Data and interpretation
 
