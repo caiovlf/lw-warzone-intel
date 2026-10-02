@@ -4,7 +4,7 @@ A static, English-language transfer outlook for the complete **1573–1636** gro
 
 ## Pages
 
-- [`index.html`](index.html) / [`transfer_outlook_1573-1636.html`](transfer_outlook_1573-1636.html): current strength ranking, projected state, tier allocations, point estimates, and modeled point growth room.
+- [`index.html`](index.html) redirects the domain root to [`transfer_outlook_1573-1636.html`](transfer_outlook_1573-1636.html), the canonical home for strength ranking, projected states, tier allocations, point estimates, and modeled point growth room.
 - [`growth_1573-1636.html`](growth_1573-1636.html): server and player comparisons between the 23 September and 2 October 2026 saved snapshots.
 - [`player_impact_1573-1636.html`](player_impact_1573-1636.html): strongest 50 tracked players per server, model influence, and one-player-at-a-time rank sensitivity.
 
