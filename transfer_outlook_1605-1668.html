@@ -127,6 +127,7 @@
     .fact-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; }
     .fact-grid div { background:#112c3d; border:1px solid #284a5d; border-radius:9px; padding:10px; }.fact-grid small { display:block; color:#9eb6c4; font-size:10px; }.fact-grid strong { display:block; font-size:15px; }
     .drawer-note { background:#1c3040; border-left:2px solid var(--amber); padding:12px; border-radius:5px; color:#c8d6dc; font-size:11px; line-height:1.55; margin-top:18px; }
+    th.sortable { padding:0; } th.sortable .sort-trigger { display:flex; align-items:center; gap:7px; width:100%; min-height:44px; padding:10px 13px; border:0; background:transparent; color:inherit; text-align:left; font:inherit; font-weight:inherit; letter-spacing:inherit; text-transform:inherit; white-space:nowrap; cursor:pointer; } th.sortable .sort-trigger:hover,th.sortable .sort-trigger:focus-visible { color:var(--text); background:#1a3c50; outline:2px solid var(--teal); outline-offset:-2px; } th.sortable .sort-trigger::after { content:'↕'; color:#7997a9; font-size:13px; } th.sortable[aria-sort="ascending"] .sort-trigger::after { content:'↑'; color:var(--teal); } th.sortable[aria-sort="descending"] .sort-trigger::after { content:'↓'; color:var(--teal); }
     @media (max-width:900px) { .hero { grid-template-columns:1fr; gap:25px; padding-top:50px; }.hero-note { max-width:550px; }.kpis { grid-template-columns:repeat(2,1fr); }.group-grid { grid-template-columns:1fr; }.method-grid { grid-template-columns:1fr; } }
     @media (max-width:600px) { .wrap { width:min(100% - 28px,1300px); }.topbar-inner { min-height:62px; }.brand { font-size:11px; }.brand-mark { width:30px; height:30px; }.top-tag { display:none; } nav { gap:13px; } nav a { font-size:11px; } nav a:first-child,nav a:last-child { display:none; }.hero { padding-top:42px; }.hero p { font-size:15px; }.kpi { padding:15px; min-height:106px; }.kpi .number { font-size:27px; }.controls { align-items:stretch; }.filter-set { width:100%; }.search { flex:1; min-width:100px; }.group-card { padding:20px; }.section-heading h2 { font-size:23px; }.drawer { padding:20px; } }
     @media (prefers-reduced-motion:reduce) { *,*:before,*:after { scroll-behavior:auto !important; transition:none !important; } }
@@ -163,14 +164,14 @@
     </section>
 
     <section id="rankings" aria-labelledby="ranking-title">
-      <div class="section-heading"><div><span class="section-index">02 / SERVER RANKINGS</span><h2 id="ranking-title">Find your warzone</h2><p>Rank #1 is strongest within its 64-server cohort. Points and growth room are estimates on the July scale; confidence is an indicative model measure.</p></div></div>
+      <div class="section-heading"><div><span class="section-index">02 / SERVER RANKINGS</span><h2 id="ranking-title">Find your warzone</h2><p>Rank #1 is strongest within its 64-server cohort. Click a column heading to sort ascending or descending. Points and growth room are estimates on the July scale.</p></div></div>
       <div class="panel">
         <div class="controls">
           <div class="tabs" role="group" aria-label="Filter by requested window"><button type="button" class="active" data-block="all">All 64</button><button type="button" data-block="1605–1636">1605–1636</button><button type="button" data-block="1637–1668">1637–1668</button></div>
-          <div class="filter-set"><input class="search" id="search" type="search" placeholder="Server number" aria-label="Search server number"><select class="select" id="stateFilter" aria-label="Filter predicted state"><option value="all">All states</option><option>Fully Open</option><option>Semi-Open</option><option>Limited Open</option></select><select class="select" id="sortSelect" aria-label="Sort ranking"><option value="rank">Group rank</option><option value="confidence">Confidence</option><option value="server">Server number</option><option value="points">Projected points</option><option value="room">Growth room</option><option value="lws">LWS index</option></select><button class="export" id="exportButton" type="button">Export CSV</button></div>
+          <div class="filter-set"><input class="search" id="search" type="search" placeholder="Server number" aria-label="Search server number"><select class="select" id="stateFilter" aria-label="Filter predicted state"><option value="all">All states</option><option>Fully Open</option><option>Semi-Open</option><option>Limited Open</option></select><button class="export" id="exportButton" type="button">Export CSV</button></div>
         </div>
-        <div class="table-intro"><span id="resultCount">64 servers</span><span>Tap a server number for its full signal profile</span></div>
-        <div class="table-scroll"><table><thead><tr><th scope="col">Rank / 64</th><th scope="col">Server</th><th scope="col">Projected state</th><th scope="col">Confidence</th><th scope="col">Follower</th><th scope="col">Trailblazer</th><th scope="col">Contributor</th><th scope="col">LWS</th><th scope="col">Proj. points*</th><th scope="col">Growth room*</th><th scope="col">Historical state</th></tr></thead><tbody id="tableBody"></tbody></table></div>
+        <div class="table-intro"><span id="resultCount">64 servers</span><span>Default: Group ↑, then Strength Rank ↑ · Tap a server number for its profile</span></div>
+        <div class="table-scroll"><table><thead><tr><th scope="col">Strength rank / 64</th><th scope="col">Server</th><th scope="col">Group</th><th scope="col">Projected state</th><th scope="col">Confidence</th><th scope="col">Follower</th><th scope="col">Trailblazer</th><th scope="col">Contributor</th><th scope="col">LWS</th><th scope="col">Proj. points*</th><th scope="col">Growth room*</th><th scope="col">Historical state</th></tr></thead><tbody id="tableBody"></tbody></table></div>
         <div class="below-table">* Estimated on July's Warzone Points scale. Growth room is the modeled percent rise in points before the next historical category cutoff, assuming peers and cutoffs stay fixed; it is not an allowed percent rise in player power. † The historical point-estimation error exceeds the modeled gap to that cutoff. “Shared” means no fixed tier quota.</div>
       </div>
     </section>
@@ -228,29 +229,51 @@
       document.getElementById('apiLink').href = data.api_url;
       document.getElementById('playerApiLink').href = `${data.player_url_prefix}1616${data.player_url_suffix}`;
 
-      const controls = {block:'all',state:'all',search:'',sort:'rank'};
+      const controls = {block:'all',state:'all',search:'',sort:'block',dir:'asc'};
+      const sortKeys = ['rank64','server','block','predicted','confidence','Follower','Trailblazer','Contributor','lws','projected_points','headroom_pct','historical'];
+      const stateOrder = {'Fully Open':0,'Semi-Open':1,'Limited Open':2};
+      const seatCounts = {'Semi-Open':{Follower:60,Trailblazer:40,Contributor:5},'Limited Open':{Follower:40,Trailblazer:30,Contributor:3}};
+      const defaultOrder = (a,b) => a.block.localeCompare(b.block) || a.rank64-b.rank64 || a.server-b.server;
+      function sortValue(row,key) {
+        if (key === 'predicted' || key === 'historical') return stateOrder[row[key]];
+        if (key in seatCounts['Semi-Open']) return row.predicted === 'Fully Open' ? null : seatCounts[row.predicted][key];
+        return row[key];
+      }
+      function compareValues(a,b) {
+        if (a == null) return b == null ? 0 : 1;
+        if (b == null) return -1;
+        const result = typeof a === 'string' ? a.localeCompare(b,'en',{sensitivity:'base'}) : a-b;
+        return (controls.dir === 'asc' ? 1 : -1) * result;
+      }
       function filtered() {
         const found = rows.filter(row => (controls.block === 'all' || row.block === controls.block) && (controls.state === 'all' || row.predicted === controls.state) && String(row.server).includes(controls.search));
-        if (controls.sort === 'confidence') found.sort((a,b) => b.confidence-a.confidence || a.block.localeCompare(b.block) || a.rank32-b.rank32);
-        else if (controls.sort === 'server') found.sort((a,b) => a.server-b.server);
-        else if (controls.sort === 'lws') found.sort((a,b) => b.lws-a.lws);
-        else if (controls.sort === 'points') found.sort((a,b) => b.projected_points-a.projected_points);
-        else if (controls.sort === 'room') found.sort((a,b) => (a.headroom_pct ?? Infinity)-(b.headroom_pct ?? Infinity));
-        else found.sort((a,b) => a.block.localeCompare(b.block) || a.rank32-b.rank32);
+        found.sort((a,b) => compareValues(sortValue(a,controls.sort),sortValue(b,controls.sort)) || defaultOrder(a,b));
         return found;
       }
+      const sortHeaders = [...document.querySelectorAll('#rankings thead th')];
+      function updateSortHeaders() { sortHeaders.forEach((th,index) => th.setAttribute('aria-sort',controls.sort === sortKeys[index] ? (controls.dir === 'asc' ? 'ascending' : 'descending') : 'none')); }
+      sortHeaders.forEach((th,index) => {
+        th.classList.add('sortable');
+        const label = th.innerHTML;
+        th.innerHTML = `<button class="sort-trigger" type="button" title="Sort by ${th.textContent.trim().replace(/\s+/g,' ')}">${label}</button>`;
+        th.querySelector('button').addEventListener('click',() => {
+          if (controls.sort === sortKeys[index]) controls.dir = controls.dir === 'asc' ? 'desc' : 'asc';
+          else { controls.sort = sortKeys[index]; controls.dir = 'asc'; }
+          updateSortHeaders(); renderTable();
+        });
+      });
+      updateSortHeaders();
       function renderTable() {
         const found = filtered();
         document.getElementById('resultCount').textContent = `${found.length} of ${rows.length} servers shown · rank is within the 64-server scoring cohort`;
         document.getElementById('tableBody').innerHTML = found.length ? found.map(row => {
           const band = confidenceBand(row.confidence);
-          return `<tr><td class="rank">#${row.rank64}</td><td><button class="server-button" data-server="${row.server}" type="button" aria-label="Open server ${row.server} profile">#${row.server}</button><br><span class="muted">${esc(row.block)}</span></td><td><span class="state ${tone(row.predicted)}">${esc(row.predicted)}</span></td><td class="confidence-cell"><div class="confidence-top"><span>${row.confidence.toFixed(1)}%</span><small>${band}</small></div><div class="confidence-track"><b class="${band.toLowerCase()}" style="width:${row.confidence}%"></b></div></td><td class="strongnum">${seat(row.predicted,'Follower')}</td><td class="strongnum">${seat(row.predicted,'Trailblazer')}</td><td class="strongnum">${seat(row.predicted,'Contributor')}</td><td class="strongnum">${row.lws.toFixed(2)}</td><td class="points">≈${fmt(row.projected_points)}</td><td class="room ${row.headroom_pct !== null && row.headroom_pct <= 10 ? 'low' : ''}" title="Estimated from July category thresholds; uncertain by about ${data.point_q80.toFixed(0)} points at the 80th percentile">${row.headroom_pct === null ? 'Already Limited' : `≈${row.headroom_pct.toFixed(1)}%${row.headroom_uncertain ? ' †' : ''}`}</td><td class="${row.predicted === row.historical ? 'historical-same' : 'historical-change'}">${esc(row.historical)}${row.predicted === row.historical ? '' : ' ≠'}</td></tr>`;
-        }).join('') : '<tr><td colspan="11" class="empty">No servers match these filters.</td></tr>';
+          return `<tr><td class="rank">#${row.rank64}</td><td><button class="server-button" data-server="${row.server}" type="button" aria-label="Open server ${row.server} profile">#${row.server}</button></td><td class="muted">${esc(row.block)}</td><td><span class="state ${tone(row.predicted)}">${esc(row.predicted)}</span></td><td class="confidence-cell"><div class="confidence-top"><span>${row.confidence.toFixed(1)}%</span><small>${band}</small></div><div class="confidence-track"><b class="${band.toLowerCase()}" style="width:${row.confidence}%"></b></div></td><td class="strongnum">${seat(row.predicted,'Follower')}</td><td class="strongnum">${seat(row.predicted,'Trailblazer')}</td><td class="strongnum">${seat(row.predicted,'Contributor')}</td><td class="strongnum">${row.lws.toFixed(2)}</td><td class="points">≈${fmt(row.projected_points)}</td><td class="room ${row.headroom_pct !== null && row.headroom_pct <= 10 ? 'low' : ''}" title="Estimated from July category thresholds; uncertain by about ${data.point_q80.toFixed(0)} points at the 80th percentile">${row.headroom_pct === null ? 'Already Limited' : `≈${row.headroom_pct.toFixed(1)}%${row.headroom_uncertain ? ' †' : ''}`}</td><td class="${row.predicted === row.historical ? 'historical-same' : 'historical-change'}">${esc(row.historical)}${row.predicted === row.historical ? '' : ' ≠'}</td></tr>`;
+        }).join('') : '<tr><td colspan="12" class="empty">No servers match these filters.</td></tr>';
       }
       document.querySelectorAll('[data-block]').forEach(button => button.addEventListener('click', () => { controls.block=button.dataset.block; document.querySelectorAll('[data-block]').forEach(item => item.classList.toggle('active',item === button)); renderTable(); }));
       document.getElementById('search').addEventListener('input',event => { controls.search=event.target.value.trim(); renderTable(); });
       document.getElementById('stateFilter').addEventListener('change',event => { controls.state=event.target.value; renderTable(); });
-      document.getElementById('sortSelect').addEventListener('change',event => { controls.sort=event.target.value; renderTable(); });
       document.getElementById('exportButton').addEventListener('click',() => {
         const header = ['Server','Requested window','Scoring cohort','Strength rank / 64','Projected state','Model confidence %','Follower allocation','Trailblazer allocation','Contributor allocation','LWS index','Projected Warzone Points','Growth room %','Top 10 average hero power M','Top 50 average hero power M','Depth score','Top 3 alliances B','Historical state','Historical points','Historical date'];
         const records = filtered().map(row => [row.server,row.block,row.cohort,row.rank64,row.predicted,row.confidence,row.predicted==='Fully Open'?'Shared':seat(row.predicted,'Follower'),row.predicted==='Fully Open'?'Shared':seat(row.predicted,'Trailblazer'),row.predicted==='Fully Open'?'Shared':seat(row.predicted,'Contributor'),row.lws,row.projected_points,row.headroom_pct ?? '',row.top10_avg_m,row.top50_avg_m,row.depth,row.top3_alliances_b,row.historical,row.historical_points,row.historical_date]);
@@ -279,4 +302,3 @@
   </script>
 </body>
 </html>
-

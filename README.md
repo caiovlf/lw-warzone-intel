@@ -25,5 +25,7 @@ The player page's **solo growth room** increases one player's hero power at a ti
 
 The growth page applies the same model to both snapshots. It matches players by UID across all 128 fetched warzones and separates hero-power changes among retained players from tracked-roster arrivals and departures. Its projected state and point differences are model changes, not observed changes in the game's unpublished Warzone Score.
 
+Data-table column headings switch between ascending and descending order when clicked. Server tables initially sort by requested group, then current strength rank (#1 first). Player tables initially sort by current player rank. Paired September/October columns use the October value for sorting; missing values appear last in either direction.
+
 These are independent estimates. The game's Warzone Score formula, next transfer standards, future cohort assignment, and current unfilled seats are unavailable. The fixed tier numbers describe historical category allocations, not open vacancies. The pages contain a dated snapshot and do not update automatically.
 
