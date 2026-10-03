@@ -4,9 +4,10 @@ A static, English-language transfer outlook for the complete **1573–1636** gro
 
 ## Pages
 
-- [`index.html`](index.html) redirects the domain root to [`transfer_outlook_1573-1636.html`](transfer_outlook_1573-1636.html), the canonical home for strength ranking, projected states, tier allocations, point estimates, and modeled point growth room.
-- [`growth_1573-1636.html`](growth_1573-1636.html): server and player comparisons between the 23 September and 2 October 2026 saved snapshots.
+- [`index.html`](index.html) redirects the domain root to [`transfer_outlook_1573-1636.html`](transfer_outlook_1573-1636.html), the canonical home for strength ranking, projected states, point estimates, modeled point growth room, and each server's Saving Flag. Tier allocations remain in server profiles.
+- [`growth_1573-1636.html`](growth_1573-1636.html): server and player comparisons between the 23 September and 2 October 2026 saved snapshots, including overload-stage progression and compact saving signals.
 - [`player_impact_1573-1636.html`](player_impact_1573-1636.html): strongest 50 tracked players per server, model influence, and one-player-at-a-time rank sensitivity.
+- [`resource_saving_1573-1636.html`](resource_saving_1573-1636.html): daily-history saving signals for all 22,354 current players, a server watchlist, and the method and data-quality details behind each flag.
 
 The old `1605-1668` filenames redirect to the corrected group, preserving existing links and player-selection query strings.
 
@@ -23,5 +24,9 @@ The historical transfer record for the preceding **1509–1572** group comes fro
 The current 2 October figures use [LWServers rankings](https://lwservers.com/data/snapshots/1573-1700/rankings.json?v=2026-10-02T04%3A03%3A05.713Z) and per-server player JSON. The growth comparison uses 23 September files saved locally at that date. The API's `v=` value is a cache-busting query parameter, not a historical archive; requesting the September URL today may return newer data. Both snapshots are embedded in these static HTML files, and the site does not update automatically.
 
 Player growth is matched by UID across all 128 servers in the API segment. A server's tracked hero-power change includes retained players and roster arrivals or departures. The player page's solo growth room changes one player's hero power at a time and re-ranks all 64 servers; percentages for different players cannot be added. The outlook page's point growth room is a separate proxy based on estimated points, so the two measures can differ.
+
+Saving signals compare robust hero-power growth slopes over 25 August–22 September and 22 September–2 October using locally saved LWS Pro daily-history responses. A strong slowdown with recent kills or overload activity is labeled “Possible saving”; it is not proof of held resources. All 22,354 current players have a saved response. The page distinguishes low prior growth, missing hero values within the window, and absent daily rows. Server flags weight the strongest 50 players by their modeled strength contribution. These flags do not alter the strength ranking or projected transfer state.
+
+Growth also shows overload-stage changes between the two snapshots. Stage zero is treated as unrecorded because the API can use it as a placeholder. A server's overload gain totals players retained in that server who have positive stages on both dates. Overload is shown for context and is not part of the Warzone Score proxy.
 
 Fixed tier allocations describe allowed intake by state, not vacant seats. Confirm the game's final classification and available seats in the transfer screen.
