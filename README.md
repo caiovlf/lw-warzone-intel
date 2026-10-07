@@ -8,7 +8,7 @@ A static, English-language transfer outlook for the complete **1573–1636** gro
 - [`growth_1573-1636.html`](growth_1573-1636.html): server and player comparisons between the 23 September and 2 October 2026 saved snapshots, including overload-stage progression and compact saving signals.
 - [`player_impact_1573-1636.html`](player_impact_1573-1636.html): strongest 50 tracked players per server, model influence, and one-player-at-a-time rank sensitivity.
 - [`resource_saving_1573-1636.html`](resource_saving_1573-1636.html): daily-history saving signals for all 22,354 current players, a server watchlist, and the method and data-quality details behind each flag.
-- [`mega_alliance_1616.html`](mega_alliance_1616.html): current server 1616 players ranked for a proposed Mega Alliance using THP and long daily kill-history participation.
+- [`mega_alliance_1616.html`](mega_alliance_1616.html): server 1616 Top 100 Mega Alliance with 70% THP and 30% uploaded season-point percentiles, alliance composition, and a reallocation scenario for NvSP, NvEM and WaE.
 
 The old `1605-1668` filenames redirect to the corrected group, preserving existing links and player-selection query strings.
 
@@ -30,6 +30,10 @@ Saving signals compare robust hero-power growth slopes over 25 August–22 Septe
 
 Growth also shows overload-stage changes between the two snapshots. Stage zero is treated as unrecorded because the API can use it as a placeholder. A server's overload gain totals players retained in that server who have positive stages on both dates. Overload is shown for context and is not part of the Warzone Score proxy.
 
-The Mega Alliance view is a server 1616 planning shortlist based on the 6 October current player roster and saved LWS Pro daily kill history from 3 August to 2 October. THP contributes 60% of a player's fit score, long-period kill pace 15%, recent 28-day kill pace 10%, and the share of observed weeks with kill gains 15%. The percentile-based score is a planning choice, not a game formula. Only players with sufficient comparable history receive a fit score; missing data is labeled Unverified rather than inactive. The current player snapshot's kill total is not used in this score.
+The Mega Alliance view uses the saved 7 October server 1616 roster, historical THP growth within 3 August–6 October, and three uploaded season defeat-score lists (NvSP, NvEM and WaE). Scores earned across lists are summed by player UID; explicit user-confirmed row matches distinguish the two Kalelothran players. Actual alliance uses the separate Alliance field, confirmed corrections, then saved API/history origin. Blāze is confirmed as WaE.
+
+The fit score is 70% THP percentile and 30% summed season-point percentile among scored eligible players. Total kills are context only and carry zero weight. The first 100 form the Mega Alliance: 51 NvSP, 17 NvEM, 30 WaE and 2 ECK0. Participation is each player's points divided by all uploaded points, including unresolved points; High/Medium/Low performance uses season-point percentile thirds. Missing scores are not imputed as zero. Eligibility still requires positive historical THP growth.
+
+Reallocation retains those 51 NvSP players and adds the other 49. The second selection for NvEM contains 69 eligible scored players (21 NvSP, 25 WaE, 23 NvEM); 31 seats remain pending. Starting occupancy and reserve flows are planning assumptions, not verified current rosters: NvSP 51 after clearing nonselected members, NvEM supplied base 89, WaE 93 distinct uploaded identities versus the user-confirmed minimum 87. The original OCR missing-tag metadata is unavailable. The provisional reserve scenario can exceed WaE capacity and is explicitly labeled as requiring reconciliation. Downloadable CSVs contain the Top 100, second selection, named transfers and 37 identifiable NvSP releases.
 
 Fixed tier allocations describe allowed intake by state, not vacant seats. Confirm the game's final classification and available seats in the transfer screen.
