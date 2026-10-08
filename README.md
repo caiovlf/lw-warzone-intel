@@ -46,3 +46,12 @@ Saving Signals now contains the Season 4 analysis in its Every tracked player ta
 The season start is estimated as 7 September from the user reporting day 32 on 8 October for server 1616. Other servers use this date only as an explicit exploratory assumption. The pre-season reference is 8 August–6 September, the whole-season window is 7 September–7 October and the recent window is 27 September–7 October. Persistence requires two consecutive complete season weeks at no more than 75% of reference pace and a recent ratio no more than 75%. Baseline stability uses the median absolute deviation of at least three pre-season weekly rates divided by their absolute median, with a 35% cutoff. Saving candidates additionally require stable baseline, recent ratio at most 50%, and recent kills or overload growth. Partial week 5 does not establish persistence. These are planning signals, not proof of saved resources.
 
 The 8 October refresh fetched all 128 server player snapshots in the segment and 22,491 history responses for 22,485 current players plus six September-only UIDs. Last complete history day is 7 October. The uploaded season point CSVs remain those provided on 7 October; they are not refreshed by the API. Tokens and raw histories are not published.
+
+
+## Server flag review
+
+The reviewed Possible saving rule requires assessed top-50 strength coverage of at least 75%, aggregate recent/prior pace no more than 0.80, and at least 30% of top-50 strength from players individually showing a strong slowdown (recent/prior pace no more than 0.50) with recent kills or overload activity. Mild and activity-uncertain slowdown no longer satisfy the strong saving-share gate. Watch includes aggregate pace no more than 0.80 and all-slowing share at least 30%, alongside the previous relative-pace criteria.
+
+Fourteen servers moved from Possible saving to Watch under this revised rule. Server 1627 has aggregate pace 0.709, all-slowing share 55.4%, and active strong-slowdown share only 14.0%, so it is Watch. The remaining Possible saving servers are 1592, 1616 and 1624. Each server profile now explains its criteria and lists the players contributing to its strong signal. Flags remain a rolling-window assessment, separate from the inferred season calendar. No new source data or strength-ranking weights changed in this review.
+
+Weekly S4 / baseline now precedes Growth signal in Every tracked player; the strength rank heading is shortened to RANK.
